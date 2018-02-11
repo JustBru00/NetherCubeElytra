@@ -2,5 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/justb/OneDrive/Coding/Test_Server_1.12/spigot-1.12.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/justb/OneDrive/Coding/spigot-api-1.12-R0.1-20170608.083637-1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
