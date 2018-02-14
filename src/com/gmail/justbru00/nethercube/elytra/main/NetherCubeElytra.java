@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 
 public class NetherCubeElytra extends JavaPlugin {
@@ -28,6 +29,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		Messager.msgConsole("&aEnabling plugin...");
 		
 		// INIT STUFF
+		MapManager.init();
 		
 		// REGISTER COMMANDS
 		
