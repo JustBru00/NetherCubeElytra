@@ -6,8 +6,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.gmail.justbru00.nethercube.elytra.commands.ElytraAdminCommand;
+import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
+import com.gmail.justbru00.nethercube.elytra.utils.PluginFile;
 
 public class NetherCubeElytra extends JavaPlugin {
 	
@@ -15,6 +18,7 @@ public class NetherCubeElytra extends JavaPlugin {
 	public static Logger log = Bukkit.getLogger();
 	public static String prefix = Messager.color("&8[&cNether&6Cube&fElytra&8] &6");
 	private static  NetherCubeElytra instance;
+	public static PluginFile dataFile = null;
 
 	@Override
 	public void onDisable() {
@@ -29,9 +33,14 @@ public class NetherCubeElytra extends JavaPlugin {
 		Messager.msgConsole("&aEnabling plugin...");
 		
 		// INIT STUFF
+		saveDefaultConfig();
 		MapManager.init();
+		dataFile = new PluginFile(this, "data.yml", "data.yml");		
 		
 		// REGISTER COMMANDS
+		getCommand("elytra").setExecutor(new ElytraCommand());
+		getCommand("elytraadmin").setExecutor(new ElytraAdminCommand());
+		// TODO /elytrabalance
 		
 		// REGISTER LISTENERS
 	

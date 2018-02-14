@@ -3,9 +3,13 @@ main: com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra
 version: 1.0-INDEV
 authors: [JustBru00,Justin Brubaker]
 commands:
-  nethercubeelytra:
-    description: Command for all features.
-    aliases: [nce]
-  elytrastats:
-    description: Shows your stats for NetherCubeElytra
+  elytra:
+    description: Command for opening gui.
+    aliases: [ely]
+  elytraadmin:
+    description: The command for admin/test features.
+    aliases: [elyadmin]
+  elytrabalance:
+    description: Command to view your current elytra currency balance.
+    aliases: [elybal]    
   

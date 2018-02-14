@@ -12,6 +12,7 @@ import com.gmail.justbru00.nethercube.elytra.enums.MapDifficulty;
 import com.gmail.justbru00.nethercube.elytra.enums.MapLength;
 import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 import com.gmail.justbru00.nethercube.elytra.utils.ItemBuilder;
+import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 
 /**
  * This class handles importing maps from the config.
@@ -31,6 +32,7 @@ public class MapManager {
 			
 			String prePath = "maps." + mapKey + ".";
 			
+			try {
 			m.setGuiItem(new ItemBuilder(Material.valueOf(c.getString("maps." + mapKey + ".item.material"))).setDataValue(c.getInt("maps." + mapKey + ".item.data")).setName("maps." + mapKey + ".item.displayname").build());
 			m.setDifficulty(MapDifficulty.fromString(c.getString("maps." + mapKey + "difficulty")));
 			m.setCreatorName(c.getString("maps." + mapKey + ".creatorname"));
@@ -48,7 +50,22 @@ public class MapManager {
 			m.setEndingPlateLocation(end);
 			
 			maps.add(m);
+			Messager.msgConsole("&aLoaded Map " + m.getInternalName() + " by " + m.getCreatorName() + " successfully.");
+			} catch (Exception e) {
+				Messager.msgConsole("&cAttempt to load map " + mapKey + "FAILED. The stack trace follows this message:");
+				Messager.msgConsole("&c" + e.getStackTrace());
+			}			
 		}
+	}	
+	
+	public static ArrayList<Map> getMaps() {
+		return maps;
+	}
+
+
+
+	public static int getNumberOfMaps() {
+		return maps.size();
 	}
 	
 	/**

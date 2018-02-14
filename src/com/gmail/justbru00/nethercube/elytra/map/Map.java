@@ -7,6 +7,8 @@ import com.gmail.justbru00.nethercube.elytra.enums.MapDifficulty;
 import com.gmail.justbru00.nethercube.elytra.enums.MapLength;
 
 public class Map {
+	
+	public static final int UNLOCKED_DEFAULT = -1;
 
 	private String internalName;
 	private ItemStack guiItem;
