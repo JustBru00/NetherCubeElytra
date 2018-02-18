@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraAdminCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
+import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 import com.gmail.justbru00.nethercube.elytra.utils.PluginFile;
@@ -22,7 +23,7 @@ public class NetherCubeElytra extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		
+		Messager.msgConsole("&cThe plugin is disabled.");
 		instance = null;
 	}
 
@@ -36,6 +37,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		saveDefaultConfig();
 		MapManager.init();
 		dataFile = new PluginFile(this, "data.yml", "data.yml");		
+		GUIManager.init();
 		
 		// REGISTER COMMANDS
 		getCommand("elytra").setExecutor(new ElytraCommand());

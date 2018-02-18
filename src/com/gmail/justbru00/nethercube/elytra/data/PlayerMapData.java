@@ -25,8 +25,6 @@ public class PlayerMapData {
 		this.bestTime = bestTime;
 	}
 
-
-
 	public String getInternalName() {
 		return internalName;
 	}

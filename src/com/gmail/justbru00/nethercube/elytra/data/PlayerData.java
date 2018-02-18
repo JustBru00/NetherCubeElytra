@@ -54,7 +54,15 @@ public class PlayerData {
 		
 		for (Map map : MapManager.getMaps()) {
 			if (mapsFromData.contains(map.getInternalName())) {
-				// TODO Get data for this map
+				// Get data for this map
+				PlayerMapData mapData = new PlayerMapData(map.getInternalName());
+				
+				mapData.setUnlocked(dataFile.getBoolean(prePath + map.getInternalName() + ".unlocked"));
+				mapData.setAttempts(dataFile.getInt(prePath + map.getInternalName() + ".attempts"));
+				mapData.setFinishes(dataFile.getInt(prePath + map.getInternalName() + ".finishes"));
+				mapData.setBestTime(dataFile.getLong(prePath + map.getInternalName() + "besttime"));
+				
+				playerMapData.add(mapData);
 			} else {
 				// Create new section for this map
 				boolean unlocked;
@@ -79,10 +87,33 @@ public class PlayerData {
 	}
 	
 	/**
-	 * Saves the data to the config. This will actually write to disk.
+	 * Saves this data to the config. This will actually write to disk.
+	 * This is used after changing a value
 	 */
 	public void save() {
-		// TODO
+		
+		// Currency
+		dataFile.set(uuid.toString() + ".currency", currency);
+		
+		// Player's map data
+		for (PlayerMapData pmd : mapData) {
+			String prePath = uuid.toString() + ".maps.";
+			dataFile.set(prePath + pmd.getInternalName() + ".unlocked", pmd.isUnlocked());							
+			dataFile.set(prePath + pmd.getInternalName() + ".attempts", pmd.getAttempts());
+			dataFile.set(prePath + pmd.getInternalName() + ".finishes", pmd.getFinishes());
+			dataFile.set(prePath + pmd.getInternalName() + ".besttime", pmd.getBestTime());
+		}
+		dataFile.save();
+	}
+	
+	public PlayerMapData getMapData(String internalName) {
+		for (PlayerMapData data : mapData) {
+			if (data.getInternalName().equalsIgnoreCase(internalName)) {
+				return data;
+			}
+		}
+		
+		return null;
 	}
 	
 	public PlayerData(UUID playerId) {

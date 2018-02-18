@@ -58,6 +58,15 @@ public class MapManager {
 		}
 	}	
 	
+	public static Map getMap(String internalName) {
+		for (Map map : maps) {
+			if (map.getInternalName().equalsIgnoreCase(internalName)) {
+				return map;
+			}
+		}
+		return null;
+	}
+	
 	public static ArrayList<Map> getMaps() {
 		return maps;
 	}
