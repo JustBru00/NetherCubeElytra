@@ -23,6 +23,8 @@ SOFTWARE.
 **/ 
 package com.gmail.justbru00.nethercube.elytra.utils;
 
+import java.util.concurrent.TimeUnit;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -58,5 +60,35 @@ public class Messager {
 	
 	public static void sendBC(String msg) {
 		Bukkit.broadcastMessage(Messager.color(NetherCubeElytra.prefix + msg));
+	}
+	
+	public static void debug(String msg) {
+		if (NetherCubeElytra.debug) {
+		Bukkit.broadcastMessage(Messager.color(NetherCubeElytra.prefix + " &8[&c&lDEBUG&8] &c" + msg));
+		}
+	}
+	
+	/**
+	 * Returns a time formated with HH:MM:SS:mm
+	 * @param timeInMillis
+	 * @return
+	 */
+	public static String formatAsTime(long timeInMillis) {
+		String toReturn;
+		
+		long hours = TimeUnit.MILLISECONDS.toHours(timeInMillis);
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(timeInMillis) % TimeUnit.HOURS.toMinutes(1);
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(timeInMillis) % TimeUnit.MINUTES.toSeconds(1);
+		long hundredths = (long) Math.round(timeInMillis / 10.0) % 100;
+		
+		if (hours == 0) {
+			toReturn = String.format("%02d:%02d:%02d &7(MM:SS:hh)", minutes, seconds, hundredths);
+		} else if (hours == 0 && minutes == 0) {
+			toReturn = String.format("%02d:%02d &7(SS:hh)", seconds, hundredths);
+		} else {
+			toReturn = String.format("%d:%02d:%02d:%02d &7(H:MM:SS:hh)", hours, minutes, seconds, hundredths);
+		}
+		
+		return Messager.color(toReturn);
 	}
 }

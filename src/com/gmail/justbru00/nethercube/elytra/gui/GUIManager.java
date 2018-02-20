@@ -7,9 +7,12 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
 import com.gmail.justbru00.nethercube.elytra.data.PlayerMapData;
@@ -50,10 +53,20 @@ public class GUIManager {
 		}
 		
 		// Fill the maps in
+		for (Map map : MapManager.getMaps()) {
+			inv.addItem(getMapItemFor(p, map.getInternalName()));
+		}
 		
+		p.openInventory(inv);		
 	}
 	
-	private ItemStack getMapItemFor(Player p, String mapInternalName) {
+	/**
+	 * Fills the lore for each map icon for the specified player.
+	 * @param p
+	 * @param mapInternalName
+	 * @return
+	 */
+	private static ItemStack getMapItemFor(Player p, String mapInternalName) {
 		
 		PlayerData pd = PlayerData.getDataFor(p);
 		PlayerMapData pmd = pd.getMapData(mapInternalName);
@@ -82,16 +95,76 @@ public class GUIManager {
 		// Second Line - Finish reward
 		String secondLine;
 		
-		int reward;
+		int reward = 0;
 		if (pmd.getFinishes() == 0) {
 			reward = map.getRewardAmount();
-		} else {
-			
-			reward = (int) (map.getRewardAmount() - (pmd.getFinishes() *  (.25 * map.getRewardAmount())));
+		} else if (pmd.getFinishes() == 1) {
+			reward = (int) (.75 * map.getRewardAmount());
+		} else if (pmd.getFinishes() == 2) {
+			reward = (int) (.50 * map.getRewardAmount());
+		} else if (pmd.getFinishes() == 3) {
+			reward = (int) (.25 * map.getRewardAmount());
+		}  else {
+			// over 4 times finished
+			reward = 0;
 		}
+			
+		if (reward <= 0) {
+			reward = 0;
+		}
+		
+		secondLine = Messager.color("&7Finish reward: &e" + reward);
+		
 		// End Second Line
 		
-		return null;
+		// Third Line - Players best time for this map
+		String thirdLine;
+		
+		Messager.debug("Best time is: " + pmd.getBestTime());
+		if (pmd.getBestTime() == PlayerMapData.NO_BEST_TIME) {
+			thirdLine = Messager.color("&7Your best time: &eNever Finished");
+		} else {
+			thirdLine = Messager.color("&7Your best time: &e" + Messager.formatAsTime(pmd.getBestTime()));
+		}
+		
+		// End Third Line
+		
+		// Fourth Line - Times Finished for the player
+		String fourthLine = Messager.color("&7Times finished: &e" + pmd.getFinishes());
+		// End fourth line
+		
+		// Fifth line
+		String fifthLine = Messager.color("&7Attempts: &e" + pmd.getAttempts());
+		// End fifthLine
+		
+		loreToSet.add(firstLine);
+		loreToSet.add(secondLine);
+		loreToSet.add(thirdLine);
+		loreToSet.add(fourthLine);
+		loreToSet.add(fifthLine);		
+		
+		if (pmd.isUnlocked()) {
+			Messager.debug("Map is unlocked | GLOWING");
+				if (toReturn.getType() == Material.FISHING_ROD) {		
+					Messager.debug("ITEM IS FISHING ROD");
+					toReturn.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 4341);
+					ItemMeta meta = toReturn.getItemMeta();
+					meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);		
+					toReturn.setItemMeta(meta);
+				} else {		
+					Messager.debug("ITEM IS NOT FISHING ROD");
+					toReturn.addUnsafeEnchantment(Enchantment.LURE, 4341);				
+					ItemMeta meta = toReturn.getItemMeta();
+					meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);		
+					toReturn.setItemMeta(meta);
+				}
+		}
+		
+		ItemMeta im = toReturn.getItemMeta();		
+		im.setLore(loreToSet);
+		toReturn.setItemMeta(im);
+		
+		return toReturn;
 	}
 	
 }

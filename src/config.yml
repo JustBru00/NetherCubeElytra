@@ -5,7 +5,7 @@ prefix: '&8[&cNether&6Cube&fElytra&8] &6'
 maps:
   mapinternalname:
     item:
-      displayname: '&b&7lMap name'
+      displayname: '&b&lMap name'
       material: 'STONE'
       data: 0
     difficulty: 'EASY'

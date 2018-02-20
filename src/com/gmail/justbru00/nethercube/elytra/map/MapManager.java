@@ -33,8 +33,8 @@ public class MapManager {
 			String prePath = "maps." + mapKey + ".";
 			
 			try {
-			m.setGuiItem(new ItemBuilder(Material.valueOf(c.getString("maps." + mapKey + ".item.material"))).setDataValue(c.getInt("maps." + mapKey + ".item.data")).setName("maps." + mapKey + ".item.displayname").build());
-			m.setDifficulty(MapDifficulty.fromString(c.getString("maps." + mapKey + "difficulty")));
+			m.setGuiItem(new ItemBuilder(Material.valueOf(c.getString("maps." + mapKey + ".item.material"))).setDataValue(c.getInt("maps." + mapKey + ".item.data")).setName(c.getString("maps." + mapKey + ".item.displayname")).build());
+			m.setDifficulty(MapDifficulty.fromString(c.getString("maps." + mapKey + ".difficulty")));
 			m.setCreatorName(c.getString("maps." + mapKey + ".creatorname"));
 			m.setInternalName(mapKey);
 			m.setLength(MapLength.fromString(c.getString("maps." + mapKey +".length")));
@@ -52,8 +52,8 @@ public class MapManager {
 			maps.add(m);
 			Messager.msgConsole("&aLoaded Map " + m.getInternalName() + " by " + m.getCreatorName() + " successfully.");
 			} catch (Exception e) {
-				Messager.msgConsole("&cAttempt to load map " + mapKey + "FAILED. The stack trace follows this message:");
-				Messager.msgConsole("&c" + e.getStackTrace());
+				Messager.msgConsole("&cAttempt to load map " + mapKey + " FAILED. The stack trace follows this message:");
+				e.printStackTrace();
 			}			
 		}
 	}	

@@ -60,7 +60,7 @@ public class PlayerData {
 				mapData.setUnlocked(dataFile.getBoolean(prePath + map.getInternalName() + ".unlocked"));
 				mapData.setAttempts(dataFile.getInt(prePath + map.getInternalName() + ".attempts"));
 				mapData.setFinishes(dataFile.getInt(prePath + map.getInternalName() + ".finishes"));
-				mapData.setBestTime(dataFile.getLong(prePath + map.getInternalName() + "besttime"));
+				mapData.setBestTime(dataFile.getLong(prePath + map.getInternalName() + ".besttime"));
 				
 				playerMapData.add(mapData);
 			} else {

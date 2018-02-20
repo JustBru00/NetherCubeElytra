@@ -1,6 +1,8 @@
 package com.gmail.justbru00.nethercube.elytra.data;
 
 public class PlayerMapData {
+	
+	public static final long NO_BEST_TIME = -1;
 
 	private String internalName;
 	private boolean unlocked;

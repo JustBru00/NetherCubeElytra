@@ -20,6 +20,7 @@ public class NetherCubeElytra extends JavaPlugin {
 	public static String prefix = Messager.color("&8[&cNether&6Cube&fElytra&8] &6");
 	private static  NetherCubeElytra instance;
 	public static PluginFile dataFile = null;
+	public static boolean debug = true;
 
 	@Override
 	public void onDisable() {
