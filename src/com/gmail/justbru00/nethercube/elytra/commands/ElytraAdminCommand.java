@@ -30,7 +30,7 @@ public class ElytraAdminCommand implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("help")) {
 					// TODO FINISH HELP
 				} else if (args[0].equals("bal")) {
-					// TODO /elyadmin bal <set,get> <player> <amount>
+					// TODO /elyadmin bal <set,get,add,remove> <player> <amount>
 				} else if (args[0].equalsIgnoreCase("maps")) {
 					// TODO /elyadmin maps <list,tp> <mapname>(for tp)
 				} else if (args[0].equalsIgnoreCase("testgui")) {

@@ -30,6 +30,14 @@ public class GUIManager {
 		borderGlass = new ItemBuilder(Material.STAINED_GLASS_PANE).setDataValue(7).setName("&r").build();
 		
 	}
+	/**
+	 * Opens the confirm purchase gui
+	 * @param p
+	 * @param mapItem
+	 */
+	public static void openConfirmGUI(Player p, ItemStack mapItem) {
+		
+	}
 	
 	/**
 	 * Opens the main GUI for map selection, unlocking, and instant teleporting.
@@ -137,11 +145,16 @@ public class GUIManager {
 		String fifthLine = Messager.color("&7Attempts: &e" + pmd.getAttempts());
 		// End fifthLine
 		
+		// Sixth Line - This maps internal name. Important for the Confirm GUI.
+		String sixthLine = Messager.color("&7" + map.getInternalName());
+		// End Sixth line
+		
 		loreToSet.add(firstLine);
 		loreToSet.add(secondLine);
 		loreToSet.add(thirdLine);
 		loreToSet.add(fourthLine);
 		loreToSet.add(fifthLine);		
+		loreToSet.add(sixthLine);
 		
 		if (pmd.isUnlocked()) {
 			Messager.debug("Map is unlocked | GLOWING");
