@@ -50,7 +50,7 @@ public class ConfirmGUIListener implements Listener {
 						pd.save();
 						
 						Messager.debug(pd.getUuid().toString() + " has unlocked " + map.getInternalName() + " for " + map.getPurchaseCost());
-						
+						GUIManager.openMainGUI((Player) e.getWhoClicked());
 						return;
 					} else {
 						// Player can't afford this 

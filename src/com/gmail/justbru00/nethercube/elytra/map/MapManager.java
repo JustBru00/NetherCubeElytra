@@ -24,6 +24,7 @@ public class MapManager {
 	private static ArrayList<Map> maps = new ArrayList<Map>();
 	
 	public static void init() {	
+		maps = new ArrayList<Map>();
 		FileConfiguration c = NetherCubeElytra.getInstance().getConfig();
 		Set<String> mapKeys = c.getConfigurationSection("maps").getKeys(false);		
 		
