@@ -27,17 +27,30 @@ public class GUIManager {
 	private static ItemStack borderGlass;
 	private static ItemStack okay;
 	private static ItemStack cancel;
+	private static ItemStack cannotAffordMap;
 	
 	public static void init() {
 		
 		borderGlass = new ItemBuilder(Material.STAINED_GLASS_PANE).setDataValue(7).setName("&r").build();
 		okay = new ItemBuilder(Material.EMERALD_BLOCK).setName("&a&lOkay").build();
 		cancel = new ItemBuilder(Material.REDSTONE_BLOCK).setName("&c&lCancel").build();
-		
+		cannotAffordMap = new ItemBuilder(Material.BARRIER).setName("&c&lYou can't afford that map").build();
 	}
 	
 	public static ItemStack getBorderGlass() {
 		return borderGlass;
+	}
+	
+	public static ItemStack getOkay() {
+		return okay;
+	}
+	
+	public static ItemStack getCancel() {
+		return cancel;
+	}
+	
+	public static ItemStack getCannotAfford() {
+		return cannotAffordMap;
 	}
 	/**
 	 * Opens the confirm purchase gui
