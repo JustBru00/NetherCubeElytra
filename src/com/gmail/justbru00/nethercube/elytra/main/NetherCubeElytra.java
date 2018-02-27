@@ -4,11 +4,13 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraAdminCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
+import com.gmail.justbru00.nethercube.elytra.listeners.MainGUIListener;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 import com.gmail.justbru00.nethercube.elytra.utils.PluginFile;
@@ -46,7 +48,10 @@ public class NetherCubeElytra extends JavaPlugin {
 		// TODO /elytrabalance
 		
 		// REGISTER LISTENERS
-	
+		PluginManager pm = Bukkit.getPluginManager();
+		pm.registerEvents(new MainGUIListener(), instance);
+		
+		
 	}
 	
 	public static NetherCubeElytra getInstance() {
