@@ -2,6 +2,12 @@
 
 prefix: '&8[&cNether&6Cube&fElytra&8] &6'
 
+lobbylocation:
+  world: world
+  x: 0
+  y: 0
+  z: 0
+
 maps:
   mapinternalname:
     item:

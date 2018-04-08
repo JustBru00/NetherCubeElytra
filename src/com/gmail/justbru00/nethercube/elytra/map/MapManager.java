@@ -92,5 +92,22 @@ public class MapManager {
 		
 		return null;
 	}
+	
+	/**
+	 * Searches all maps to see if one has the location registered as a plate location.
+	 * @param loc The location to check.
+	 * @return The MapPlateDetails of this possible plate location, otherwise returns null.
+	 */
+	public static MapPlateDetails getPlateDetails(Location loc) {
+		for (Map m : maps) {
+			if (m.getStartPlateLocation().equals(loc)) {
+				return new MapPlateDetails(loc, true, m);
+			} else if (m.getEndingPlateLocation().equals(loc)) {
+				return new MapPlateDetails(loc, false, m);
+			}
+		}
+		
+		return null;
+	}
 
 }

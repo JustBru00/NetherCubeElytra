@@ -12,7 +12,9 @@ import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
 import com.gmail.justbru00.nethercube.elytra.listeners.ConfirmGUIListener;
 import com.gmail.justbru00.nethercube.elytra.listeners.MainGUIListener;
+import com.gmail.justbru00.nethercube.elytra.listeners.PressurePlateTriggerListener;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
+import com.gmail.justbru00.nethercube.elytra.timer.PlayerTimer;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 import com.gmail.justbru00.nethercube.elytra.utils.PluginFile;
 
@@ -42,6 +44,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		MapManager.init();
 		dataFile = new PluginFile(this, "data.yml", "data.yml");		
 		GUIManager.init();
+		PlayerTimer.init();
 		
 		// REGISTER COMMANDS
 		getCommand("elytra").setExecutor(new ElytraCommand());
@@ -52,6 +55,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new MainGUIListener(), instance);
 		pm.registerEvents(new ConfirmGUIListener(), instance);
+		pm.registerEvents(new PressurePlateTriggerListener(), instance);
 		
 	}
 	
