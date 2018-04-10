@@ -8,10 +8,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
 import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
+import com.gmail.justbru00.nethercube.elytra.map.Map;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.timer.PlayerTimer;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
@@ -139,7 +141,52 @@ public class ElytraAdminCommand implements CommandExecutor {
 					}
 						
 				} else if (args[0].equalsIgnoreCase("maps")) {
-					// TODO /elyadmin maps <list,tp> <mapname>(for tp)
+					// TODO /elyadmin maps <list,tp> (player) (mapName)
+					if (args.length >= 2) {
+						if (args[1].equalsIgnoreCase("list")) {
+							for (Map map : MapManager.getMaps()) {
+								Messager.msgSender("&6" + map.getInternalName(), sender);
+							}
+							return true;
+						} else {
+							// Try for TP
+							if (args[1].equalsIgnoreCase("tp")) {
+								if (args.length == 4) {
+									Player target;
+									try {
+										target = Bukkit.getPlayer(args[2]);
+									} catch (Exception e) {
+										Messager.msgSender("&cProvided player is not online.", sender);
+										return true;
+									}
+									if (target == null) {
+										Messager.msgSender("&cProvided player is not online.", sender);
+										return true;
+									}
+									
+									Map map = MapManager.getMap(args[3]);
+									if (map != null) {
+										// TELEPORT PLAYER
+										target.teleport(map.getStartPlateLocation().clone().add(.5,1,.5), TeleportCause.PLUGIN);
+										Messager.msgSender("&6Teleported " + target.getName() + " to the start of map " + map.getInternalName() + ".", sender);
+										return true;
+									} else {
+										Messager.msgSender("&cThat map does not exist. Get a list of maps with /elytraadmin maps list", sender);
+										return true;
+									}
+								} else {
+									Messager.msgSender("&cNot enough arguments. /elytraadmin maps tp <player> <mapname>", sender);
+									return true;
+								}
+							} else {
+								Messager.msgSender("&cNot enough arguments. /elytraadmin maps tp <player> <mapname>", sender);
+								return true;
+							}
+						}
+					} else {
+						Messager.msgSender("&cNot enough arguments. /elytraadmin maps <list, tp>", sender);
+						return true;
+					}
 				} else if (args[0].equalsIgnoreCase("testgui")) {
 					Messager.msgSender("&aOpening the GUI.", sender);
 					
