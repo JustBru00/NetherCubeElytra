@@ -23,7 +23,7 @@ public class PlayerTimer {
 
 	private static HashMap<UUID, Map> playersInMaps = new HashMap<UUID, Map>();
 	private static HashMap<UUID, Instant> playerMapStartTime = new HashMap<UUID, Instant>();
-	private static Location LOBBY_LOCATION;
+	public static Location LOBBY_LOCATION;
 	
 	public static void init() {
 		playersInMaps = new HashMap<UUID, Map>();
@@ -123,7 +123,7 @@ public class PlayerTimer {
 		Instant endTime = Instant.now();
 		
 		if (!playersInMaps.containsKey(p.getUniqueId())) {
-			Messager.debug("&c FINISHED BEFORE STARTING");
+			Messager.debug("&cFINISHED BEFORE STARTING");
 			return;
 		}
 		

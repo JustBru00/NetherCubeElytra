@@ -15,6 +15,7 @@ import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
 import com.gmail.justbru00.nethercube.elytra.listeners.ConfirmGUIListener;
 import com.gmail.justbru00.nethercube.elytra.listeners.MainGUIListener;
 import com.gmail.justbru00.nethercube.elytra.listeners.PressurePlateTriggerListener;
+import com.gmail.justbru00.nethercube.elytra.listeners.WorldLeaveListener;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.timer.PlayerTimer;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
@@ -59,6 +60,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		pm.registerEvents(new MainGUIListener(), instance);
 		pm.registerEvents(new ConfirmGUIListener(), instance);
 		pm.registerEvents(new PressurePlateTriggerListener(), instance);
+		pm.registerEvents(new WorldLeaveListener(), instance);
 		
 	}
 	
