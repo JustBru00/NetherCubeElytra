@@ -63,7 +63,7 @@ public class PlayerTimer {
 				}
 				
 			}
-		}, 20, 5);
+		}, 20, 10);
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class PlayerTimer {
 		
 		pd.setCurrency(pd.getCurrency() + reward);
 		pd.save();
-		Messager.msgPlayer("&6You received &a" + reward + " &6for completing the map.", p);
+		Messager.msgPlayer("&6You received &a" + reward + " &6currency for completing the map.", p);
 		
 		// Remove player from the HashMaps
 		playersInMaps.remove(p.getUniqueId());

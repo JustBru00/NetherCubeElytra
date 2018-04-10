@@ -2,15 +2,19 @@ package com.gmail.justbru00.nethercube.elytra.listeners;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
+import com.gmail.justbru00.nethercube.elytra.map.MapManager;
+import com.gmail.justbru00.nethercube.elytra.timer.PlayerTimer;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 
 public class MainGUIListener implements Listener {
@@ -37,8 +41,10 @@ public class MainGUIListener implements Listener {
 						if (lore.get(0).contains(Messager.color("UNLOCKED:"))) {
 							// Map is unlocked - Teleport them to the start
 							if (e.getClick() == ClickType.LEFT || e.getClick() == ClickType.SHIFT_LEFT) {
-								Messager.debug("That map is unlocked MAGIC TP WILL BE HERE");
-								// TODO TP the player to the start
+								// Ensure that the player is not in a map
+								PlayerTimer.playerLeavingMap((Player) e.getWhoClicked(), false);
+								String mapName = ChatColor.stripColor(item.getItemMeta().getLore().get(5));								
+								e.getWhoClicked().teleport(MapManager.getMap(mapName).getStartPlateLocation().clone().add(0.5, 1, .5), TeleportCause.PLUGIN);
 							}
 							return;
 						} 

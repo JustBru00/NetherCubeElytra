@@ -82,7 +82,7 @@ public class Messager {
 	
 	public static void debug(String msg) {
 		if (NetherCubeElytra.debug) {
-		Bukkit.broadcastMessage(Messager.color(NetherCubeElytra.prefix + " &8[&c&lDEBUG&8] &c" + msg));
+			Bukkit.broadcastMessage(Messager.color(NetherCubeElytra.prefix + " &8[&c&lDEBUG&8] &c" + msg));
 		}
 	}
 	
@@ -97,16 +97,15 @@ public class Messager {
 		long hours = TimeUnit.MILLISECONDS.toHours(timeInMillis);
 		long minutes = TimeUnit.MILLISECONDS.toMinutes(timeInMillis) % TimeUnit.HOURS.toMinutes(1);
 		long seconds = TimeUnit.MILLISECONDS.toSeconds(timeInMillis) % TimeUnit.MINUTES.toSeconds(1);
-		long hundredths = (long) Math.round(timeInMillis / 10.0) % 100;
+		String milis = String.format("%03d", timeInMillis % 1000);
 		
-		if (hours == 0) {
-			toReturn = String.format("%02d:%02d:%02d &7(MM:SS:hh)", minutes, seconds, hundredths);
-		} else if (hours == 0 && minutes == 0) {
-			toReturn = String.format("%02d:%02d &7(SS:hh)", seconds, hundredths);
+		if (hours == 0 && minutes == 0) {
+			toReturn = String.format("%02d", seconds) + "." + milis;			
+		} else if (hours == 0) {
+			toReturn = String.format("%02d:%02d", minutes, seconds) + "." + milis;
 		} else {
-			toReturn = String.format("%d:%02d:%02d:%02d &7(H:MM:SS:hh)", hours, minutes, seconds, hundredths);
+			toReturn = String.format("%d:%02d:%02d", hours, minutes, seconds) + "." + milis;
 		}
-		
 		return Messager.color(toReturn);
 	}
 }
