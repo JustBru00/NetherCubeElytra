@@ -16,6 +16,7 @@ import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
 import com.gmail.justbru00.nethercube.elytra.data.PlayerMapData;
 import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 import com.gmail.justbru00.nethercube.elytra.map.Map;
+import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 
 public class PlayerTimer {
@@ -25,6 +26,9 @@ public class PlayerTimer {
 	private static Location LOBBY_LOCATION;
 	
 	public static void init() {
+		playersInMaps = new HashMap<UUID, Map>();
+		playerMapStartTime = new HashMap<UUID, Instant>();
+		
 		FileConfiguration config = NetherCubeElytra.getInstance().getConfig();
 		// Load lobby location
 		Location loc = new Location(Bukkit.getWorld(config.getString("lobbylocation.world")), 
@@ -60,6 +64,21 @@ public class PlayerTimer {
 				
 			}
 		}, 20, 5);
+	}
+	
+	/**
+	 * Call this when a player leaves the current map for some reason.
+	 * Used by /elytralobby and the WorldLeaveListener
+	 * @param p
+	 */
+	public static void playerLeavingMap(Player p, boolean teleportToLobby) {
+		playerMapStartTime.remove(p.getUniqueId());
+		playersInMaps.remove(p.getUniqueId());
+		
+		if (teleportToLobby) {
+			// Teleport the player to the elytra lobby
+			p.teleport(LOBBY_LOCATION, TeleportCause.PLUGIN);
+		}
 	}
 	
 	public static boolean isPlayerInMap(Player p) {
@@ -135,7 +154,29 @@ public class PlayerTimer {
 					+ "You failed to beat your personal best of &a" + Messager.formatAsTime(pmd.getBestTime()) + "&6.", p);
 		}
 		
-		// TODO GIVE REWARD FOR THIS MAP AND TELL PLAYER HOW MUCH IT WAS
+		// GIVE REWARD FOR THIS MAP AND TELL PLAYER HOW MUCH IT WAS
+		int reward = 0;
+		Map map = MapManager.getMap(pmd.getInternalName());
+		if (pmd.getFinishes() == 0) {
+			reward = map.getRewardAmount();
+		} else if (pmd.getFinishes() == 1) {
+			reward = (int) (.75 * map.getRewardAmount());
+		} else if (pmd.getFinishes() == 2) {
+			reward = (int) (.50 * map.getRewardAmount());
+		} else if (pmd.getFinishes() == 3) {
+			reward = (int) (.25 * map.getRewardAmount());
+		} else {
+			// over 4 times finished
+			reward = 0;
+		}
+			
+		if (reward <= 0) {
+			reward = 0;
+		}
+		
+		pd.setCurrency(pd.getCurrency() + reward);
+		pd.save();
+		Messager.msgPlayer("&6You received &a" + reward + " &6for completing the map.", p);
 		
 		// Remove player from the HashMaps
 		playersInMaps.remove(p.getUniqueId());

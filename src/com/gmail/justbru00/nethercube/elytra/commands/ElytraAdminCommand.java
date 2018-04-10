@@ -13,6 +13,7 @@ import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
 import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
+import com.gmail.justbru00.nethercube.elytra.timer.PlayerTimer;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
 
 public class ElytraAdminCommand implements CommandExecutor {
@@ -156,7 +157,8 @@ public class ElytraAdminCommand implements CommandExecutor {
 					Messager.msgSender("&aReloaded config.yml and data.yml.", sender);
 					MapManager.init();
 					GUIManager.init();
-					Messager.msgSender("&aReinitialized MapManager and GUIManager.", sender);
+					PlayerTimer.init();
+					Messager.msgSender("&aReinitialized MapManager, GUIManager, and PlayerTimer.", sender);
 					return true;
 				} else {
 					Messager.msgSender("&cSorry that the argument " + args[0] + " is not correct. Use /elytraadmin help for a list of arguments.", sender);

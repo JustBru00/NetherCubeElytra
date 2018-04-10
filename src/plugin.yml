@@ -1,4 +1,4 @@
-name: NetherCubeElytra
+0name: NetherCubeElytra
 main: com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra
 version: 1.0-INDEV
 authors: [JustBru00,Justin Brubaker]
@@ -11,5 +11,8 @@ commands:
     aliases: [elyadmin]
   elytrabalance:
     description: Command to view your current elytra currency balance.
-    aliases: [elybal]    
+    aliases: [elybal]   
+  elytralobby:
+    description: Command to teleport to the elytra lobby and leave the current map.
+    aliases: [elylobby] 
   
