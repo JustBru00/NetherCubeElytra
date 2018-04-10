@@ -100,8 +100,13 @@ public class PlayerTimer {
 	 * @param p
 	 * @param m
 	 */
-	public static void playerEndedMap(Player p, Map m) {
+	public static void playerEndedMap(Player p, Map m) {		
 		Instant endTime = Instant.now();
+		
+		if (!playersInMaps.containsKey(p.getUniqueId())) {
+			Messager.debug("&c FINISHED BEFORE STARTING");
+			return;
+		}
 		
 		PlayerData pd = PlayerData.getDataFor(p);
 		PlayerMapData pmd = pd.getMapData(m.getInternalName());
@@ -126,9 +131,11 @@ public class PlayerTimer {
 			pd.save();
 		} else {
 			// Not the new best time
-			Messager.msgPlayer("&6You finished the map in &a" + Messager.formatAsTime(mapTime) + "&6. "
-					+ "You failed to beat your personal best of " + Messager.formatAsTime(pmd.getBestTime()) + "&6.", p);
+			Messager.msgPlayer("&6You finished the map in &c" + Messager.formatAsTime(mapTime) + "&6. "
+					+ "You failed to beat your personal best of &a" + Messager.formatAsTime(pmd.getBestTime()) + "&6.", p);
 		}
+		
+		// TODO GIVE REWARD FOR THIS MAP AND TELL PLAYER HOW MUCH IT WAS
 		
 		// Remove player from the HashMaps
 		playersInMaps.remove(p.getUniqueId());
