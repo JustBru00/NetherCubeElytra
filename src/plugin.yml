@@ -1,7 +1,8 @@
 name: NetherCubeElytra
 main: com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra
-version: 1.0-RC.1
+version: 1.0-RC2
 authors: [JustBru00,Justin Brubaker]
+softdepend: [HolographicDisplays]
 commands:
   elytra:
     description: Command for opening gui.

@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
+import com.gmail.justbru00.nethercube.elytra.leaderboards.LeaderboardManager;
 import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 import com.gmail.justbru00.nethercube.elytra.map.Map;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
@@ -206,6 +207,17 @@ public class ElytraAdminCommand implements CommandExecutor {
 					GUIManager.init();
 					PlayerTimer.init();
 					Messager.msgSender("&aReinitialized MapManager, GUIManager, and PlayerTimer.", sender);
+					return true;
+				} else if (args[0].equalsIgnoreCase("updateleaderboards")) {
+					Bukkit.getScheduler().runTaskAsynchronously(NetherCubeElytra.getInstance(), new Runnable() {
+						
+						@Override
+						public void run() {
+							LeaderboardManager.updateAllFastestTimeLeaderboard();
+							LeaderboardManager.updateBalanceLeaderboard();
+						}
+					});
+					Messager.msgSender("&aAttempting to update leaderboards. You should see a success message soon.", sender);
 					return true;
 				} else {
 					Messager.msgSender("&cSorry that the argument " + args[0] + " is not correct. Use /elytraadmin help for a list of arguments.", sender);

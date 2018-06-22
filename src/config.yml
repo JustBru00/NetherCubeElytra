@@ -7,6 +7,45 @@ lobbylocation:
   x: 0
   y: 0
   z: 0
+  
+leaderboards:
+  topbalance:
+    location:
+      x: 0
+      y: 0
+      z: 0
+      world: world
+    lines:
+      - '&b&lTop Balance'
+      - '&f{name1} &7- &e{bal1}'
+      - '&f{name2} &7- &e{bal2}'
+      - '&f{name3} &7- &e{bal3}'
+      - '&f{name4} &7- &e{bal4}'
+      - '&f{name5} &7- &e{bal5}'
+      - '&f{name6} &7- &e{bal6}'
+      - '&f{name7} &7- &e{bal7}'
+      - '&f{name8} &7- &e{bal8}'
+      - '&f{name9} &7- &e{bal9}' 
+      - '&f{name10} &7- &e{bal10}'
+  fastesttime:  
+    lines:
+      - '&b&lFastest Times for {mapname}'
+      - '&f{name1} &7- &e{time1}'
+      - '&f{name2} &7- &e{time2}'
+      - '&f{name3} &7- &e{time3}'
+      - '&f{name4} &7- &e{time4}'
+      - '&f{name5} &7- &e{time5}'
+      - '&f{name6} &7- &e{time6}'
+      - '&f{name7} &7- &e{time7}'
+      - '&f{name8} &7- &e{time8}'
+      - '&f{name9} &7- &e{time9}' 
+      - '&f{name10} &7- &e{time10}'
+    locations:
+      mapinternalname:
+        x: 0
+        y: 0
+        z: 0
+        world: world
 
 maps:
   mapinternalname:

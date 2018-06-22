@@ -12,6 +12,7 @@ import com.gmail.justbru00.nethercube.elytra.commands.ElytraBalanceCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraLobbyCommand;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
+import com.gmail.justbru00.nethercube.elytra.leaderboards.LeaderboardManager;
 import com.gmail.justbru00.nethercube.elytra.listeners.ConfirmGUIListener;
 import com.gmail.justbru00.nethercube.elytra.listeners.MainGUIListener;
 import com.gmail.justbru00.nethercube.elytra.listeners.PressurePlateTriggerListener;
@@ -29,6 +30,7 @@ public class NetherCubeElytra extends JavaPlugin {
 	private static  NetherCubeElytra instance;
 	public static PluginFile dataFile = null;
 	public static boolean debug = true;
+	public static boolean enableLeaderboards = true;
 
 	@Override
 	public void onDisable() {
@@ -48,6 +50,14 @@ public class NetherCubeElytra extends JavaPlugin {
 		dataFile = new PluginFile(this, "data.yml", "data.yml");		
 		GUIManager.init();
 		PlayerTimer.init();
+		LeaderboardManager.loadLeaderboardLines();
+		
+		// CHECK FOR HOLOGRAPHIC DISPLAYS
+		if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
+			Messager.msgConsole("&cWARNING HOLOGRAPHICDISPLAYS NOT INSTALLED OR ENABLED");
+			Messager.msgConsole("&cDISABLING LEADERBOARDS.");
+			enableLeaderboards = false;
+		}
 		
 		// REGISTER COMMANDS
 		getCommand("elytra").setExecutor(new ElytraCommand());
