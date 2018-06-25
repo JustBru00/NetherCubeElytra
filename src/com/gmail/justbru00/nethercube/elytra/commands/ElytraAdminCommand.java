@@ -40,6 +40,7 @@ public class ElytraAdminCommand implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("help")) {
 					Messager.msgSender("&6/elytraadmin currency <set,get,add,subtract> <playerName,UUID> (amount)", sender);
 					Messager.msgSender("&6/elytraadmin maps <list,tp> (player)", sender);
+					Messager.msgSender("&6/elytraadmin updateleaderboards", sender);
 					Messager.msgSender("&6/elytraadmin reload", sender);
 					return true;
 				} else if (args[0].equals("currency") || args[0].equalsIgnoreCase("cur")) {
@@ -142,7 +143,6 @@ public class ElytraAdminCommand implements CommandExecutor {
 					}
 						
 				} else if (args[0].equalsIgnoreCase("maps")) {
-					// TODO /elyadmin maps <list,tp> (player) (mapName)
 					if (args.length >= 2) {
 						if (args[1].equalsIgnoreCase("list")) {
 							for (Map map : MapManager.getMaps()) {
@@ -206,15 +206,16 @@ public class ElytraAdminCommand implements CommandExecutor {
 					MapManager.init();
 					GUIManager.init();
 					PlayerTimer.init();
-					Messager.msgSender("&aReinitialized MapManager, GUIManager, and PlayerTimer.", sender);
+					LeaderboardManager.loadLeaderboardLines();
+					Messager.msgSender("&aReinitialized LeaderboardManager, MapManager, GUIManager, and PlayerTimer.", sender);
 					return true;
 				} else if (args[0].equalsIgnoreCase("updateleaderboards")) {
 					Bukkit.getScheduler().runTaskAsynchronously(NetherCubeElytra.getInstance(), new Runnable() {
 						
 						@Override
 						public void run() {
-							LeaderboardManager.updateAllFastestTimeLeaderboard();
-							LeaderboardManager.updateBalanceLeaderboard();
+							LeaderboardManager.updateAllFastestTimeLeaderboard(sender);
+							LeaderboardManager.updateBalanceLeaderboard(sender);
 						}
 					});
 					Messager.msgSender("&aAttempting to update leaderboards. You should see a success message soon.", sender);

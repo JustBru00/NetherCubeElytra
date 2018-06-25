@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
@@ -21,6 +21,7 @@ import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
+import com.mysql.jdbc.UpdatableResultSet;
 
 public class LeaderboardManager {
 	
@@ -29,13 +30,97 @@ public class LeaderboardManager {
 	private static HashMap<String,Location> fastestTimeBoardLocations = new HashMap<String,Location>();
 	private static Location balanceLeaderBoardLocation;
 	private static HashMap<String, Hologram> fastestHolograms = new HashMap<String, Hologram>();
+	private static Hologram balanceHologram;
 
 	public static void updateBalanceLeaderboard() {
 		if (!NetherCubeElytra.enableLeaderboards) {
 			return;
 		}
-		// TODO	
+		Location loc = balanceLeaderBoardLocation;
+		
+		ArrayList<PlayerData> allTheData = new ArrayList<PlayerData>();
+		
+		for (String key : NetherCubeElytra.dataFile.getKeys(false)) {
+			try {
+				allTheData.add(PlayerData.getDataFor(Bukkit.getOfflinePlayer(UUID.fromString(key))));
+			} catch (Exception e) {
+				Messager.debug("&cFailed to get data for uuid: " + key);
+			}
+		}
+		
+		HashMap<UUID, Integer> dataMap = new HashMap<UUID, Integer>();
+		
+		for (PlayerData v : allTheData) {
+			dataMap.put(v.getUuid(), v.getCurrency());
+		}
+		// Get the top ten
+		Map<UUID, Integer> topTen = dataMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+				.limit(10).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		
+		
+		List<String> textLines = new ArrayList<String>();
+		
+		ArrayList<UUID> orderedIds = new ArrayList<UUID>();
+		
+		for (Entry<UUID, Integer> entry : topTen.entrySet()) {
+			orderedIds.add(entry.getKey());		
+		}
+		
+		for (String line : balanceLeaderBoardLines) {
+			// Replace names
+			for (int i = 1; i <= 10; i++) {
+				String name;				
+				try {
+					name = Bukkit.getOfflinePlayer(orderedIds.get(i-1)).getName();
+				} catch (IndexOutOfBoundsException e) {
+					name = "Empty";
+				}
+				
+				line = line.replace("{name" + i +"}", name);
+			}
+			
+			// Replace Balance
+			for (int i = 1; i <= 10; i++) {
+				String currency;				
+				try {
+					currency = String.valueOf(topTen.get(orderedIds.get(i-1)));
+				} catch (IndexOutOfBoundsException e) {
+					currency = "none";
+				}
+				
+				line = line.replace("{bal" + i +"}", currency);
+			}
+			
+			textLines.add(line);
+		}
+		Bukkit.getScheduler().runTask(NetherCubeElytra.getInstance(), new Runnable() {
+			
+			@Override
+			public void run() {
+				// Update actual hologram
+				Hologram holo;
+				if (balanceHologram == null) {
+					holo = HologramsAPI.createHologram(NetherCubeElytra.getInstance(), loc);
+					balanceHologram = holo;
+				} else {
+					holo = balanceHologram;
+				}		
+				
+				holo.clearLines();
+				
+				for (String line : textLines) {
+					holo.appendTextLine(Messager.color(line));
+				}
+				Messager.debug("[LeaderManager] Finished updating balance leaderboard.");				
+			}
+		});
 	}
+	
+	public static void updateBalanceLeaderboard(CommandSender toNotify) {
+		updateBalanceLeaderboard();
+		Messager.msgSender("&aUpdated the balance leaderboard successfully.", toNotify);
+	}
+	
 	
 	public static void updateFastestTimeLeaderboard(String mapInternalName) {
 		if (!NetherCubeElytra.enableLeaderboards) {
@@ -141,8 +226,27 @@ public class LeaderboardManager {
 		}
 	}
 	
+	/**
+	 * Updates all fastest time leaderboards by calling {@link #updateFastestTimeLeaderboard(String)}
+	 * for every map in the MapManager
+	 * @param toNotify The {@link CommandSender} that should be notified of this finishing
+	 */
+	public static void updateAllFastestTimeLeaderboard(CommandSender toNotify) {
+		if (!NetherCubeElytra.enableLeaderboards) {
+			return;
+		}
+		for (com.gmail.justbru00.nethercube.elytra.map.Map m : MapManager.getMaps()) {
+			updateFastestTimeLeaderboard(m.getInternalName());
+			Messager.msgSender("&aUpdated the fastest time leaderboard for: " + m.getInternalName(), toNotify);
+		}
+		Messager.msgSender("&aFinished updating all of the fastest time leaderboards.", toNotify);
+	}
+	
 	public static void loadLeaderboardLines() {
 		FileConfiguration config = NetherCubeElytra.getInstance().getConfig();
+		
+		// Clear to allow for reloading
+		fastestTimeBoardLocations.clear();
 		
 		// Load balance leaderboard location
 		balanceLeaderBoardLocation = new Location(Bukkit.getWorld(config.getString("leaderboards.topbalance.location.world")),
