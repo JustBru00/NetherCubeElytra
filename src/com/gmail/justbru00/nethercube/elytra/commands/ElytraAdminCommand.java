@@ -44,8 +44,6 @@ public class ElytraAdminCommand implements CommandExecutor {
 					Messager.msgSender("&6/elytraadmin reload", sender);
 					return true;
 				} else if (args[0].equals("currency") || args[0].equalsIgnoreCase("cur")) {
-					// TODO /elyadmin currency <set,get,add,remove> <player> <amount>	
-					
 					if (args.length >= 3) {
 					
 					OfflinePlayer offline = null;
