@@ -46,17 +46,21 @@ public class NetherCubeElytra extends JavaPlugin {
 		
 		// INIT STUFF
 		saveDefaultConfig();
+		debug = getConfig().getBoolean("debug");		
 		MapManager.init();
 		dataFile = new PluginFile(this, "data.yml", "data.yml");		
 		GUIManager.init();
 		PlayerTimer.init();
 		LeaderboardManager.loadLeaderboardLines();
 		
+		
 		// CHECK FOR HOLOGRAPHIC DISPLAYS
 		if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
 			Messager.msgConsole("&cWARNING HOLOGRAPHICDISPLAYS NOT INSTALLED OR ENABLED");
 			Messager.msgConsole("&cDISABLING LEADERBOARDS.");
 			enableLeaderboards = false;
+		} else {
+			LeaderboardManager.startUpdateTask();
 		}
 		
 		// REGISTER COMMANDS

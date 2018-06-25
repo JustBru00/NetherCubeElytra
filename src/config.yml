@@ -6,9 +6,12 @@ lobbylocation:
   world: world
   x: 0
   y: 0
-  z: 0
+  z: 0  
+  
+debug: false  
   
 leaderboards:
+  update_every_x_ticks: 6000
   topbalance:
     location:
       x: 0

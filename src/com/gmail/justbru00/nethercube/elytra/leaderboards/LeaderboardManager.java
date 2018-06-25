@@ -21,7 +21,6 @@ import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
-import com.mysql.jdbc.UpdatableResultSet;
 
 public class LeaderboardManager {
 	
@@ -240,6 +239,21 @@ public class LeaderboardManager {
 			Messager.msgSender("&aUpdated the fastest time leaderboard for: " + m.getInternalName(), toNotify);
 		}
 		Messager.msgSender("&aFinished updating all of the fastest time leaderboards.", toNotify);
+	}
+	/**
+	 * This will not be reloaded with /elyadmin reload
+	 */
+	public static void startUpdateTask() {
+		int ticksBetweenUpdates = NetherCubeElytra.getInstance().getConfig().getInt("leaderboards.update_every_x_ticks");
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(NetherCubeElytra.getInstance(), new Runnable() {			
+			@Override
+			public void run() {
+				Messager.debug("Starting auto leaderboard update.");
+				updateAllFastestTimeLeaderboard();		
+				updateBalanceLeaderboard();
+				Messager.debug("Finished auto leaderboard update.");
+			}
+		}, 30*20, ticksBetweenUpdates);
 	}
 	
 	public static void loadLeaderboardLines() {
