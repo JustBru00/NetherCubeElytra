@@ -63,7 +63,7 @@ public class PlayerTimer {
 				}
 				
 			}
-		}, 20, 10);
+		}, 20, 20);
 	}
 	
 	/**
@@ -130,9 +130,7 @@ public class PlayerTimer {
 		PlayerData pd = PlayerData.getDataFor(p);
 		PlayerMapData pmd = pd.getMapData(m.getInternalName());
 		
-		// Add one finish to the stats
-		pmd.setFinishes(pmd.getFinishes() + 1);
-		pd.save();
+		
 		
 		long mapTime = Duration.between(playerMapStartTime.get(p.getUniqueId()), endTime).toMillis();
 		
@@ -173,6 +171,9 @@ public class PlayerTimer {
 		if (reward <= 0) {
 			reward = 0;
 		}
+		
+		// Add one finish to the stats
+		pmd.setFinishes(pmd.getFinishes() + 1);		
 		
 		pd.setCurrency(pd.getCurrency() + reward);
 		pd.save();
