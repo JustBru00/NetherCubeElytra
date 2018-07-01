@@ -2,7 +2,7 @@ name: NetherCubeElytra
 main: com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra
 version: 1.1
 authors: [JustBru00,Justin Brubaker]
-softdepend: [HolographicDisplays]
+softdepend: [HolographicDisplays,PlaceholderAPI]
 commands:
   elytra:
     description: Command for opening gui.

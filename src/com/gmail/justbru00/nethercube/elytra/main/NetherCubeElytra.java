@@ -20,6 +20,7 @@ import com.gmail.justbru00.nethercube.elytra.listeners.WorldLeaveListener;
 import com.gmail.justbru00.nethercube.elytra.map.MapManager;
 import com.gmail.justbru00.nethercube.elytra.timer.PlayerTimer;
 import com.gmail.justbru00.nethercube.elytra.utils.Messager;
+import com.gmail.justbru00.nethercube.elytra.utils.NetherCubeElytraPlaceholders;
 import com.gmail.justbru00.nethercube.elytra.utils.PluginFile;
 
 public class NetherCubeElytra extends JavaPlugin {
@@ -38,6 +39,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		instance = null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -52,6 +54,12 @@ public class NetherCubeElytra extends JavaPlugin {
 		GUIManager.init();
 		PlayerTimer.init();
 		LeaderboardManager.loadLeaderboardLines();
+		
+		// ADD PLACEHOLDERS
+		if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+			// Register placeholder hook
+			new NetherCubeElytraPlaceholders(instance).hook();
+		}
 		
 		
 		// CHECK FOR HOLOGRAPHIC DISPLAYS
