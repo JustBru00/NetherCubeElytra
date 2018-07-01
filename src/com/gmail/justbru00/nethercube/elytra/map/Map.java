@@ -19,6 +19,7 @@ public class Map {
 	private int purchaseCost;
 	private Location startPlateLocation;
 	private Location endingPlateLocation;
+	private Location spawnLocation;
 	
 	public Map(String internalName) {
 		this.internalName = internalName;
@@ -36,7 +37,15 @@ public class Map {
 		this.purchaseCost = purchaseCost;
 		this.startPlateLocation = startPlateLocation;
 		this.endingPlateLocation = endingPlateLocation;
+	}	
+	public Location getSpawnLocation() {
+		return spawnLocation;
 	}
+
+	public void setSpawnLocation(Location spawnLocation) {
+		this.spawnLocation = spawnLocation;
+	}
+
 	public String getInternalName() {
 		return internalName;
 	}

@@ -43,12 +43,17 @@ public class MapManager {
 			m.setRewardAmount(c.getInt(prePath + "rewardamount"));
 			Location start;
 			Location end;
+			Location spawnpoint;
 			
 			start = new Location(Bukkit.getWorld(c.getString(prePath + "startlocation.world")), c.getInt(prePath + "startlocation.x"), c.getInt(prePath + "startlocation.y"), c.getInt(prePath + "startlocation.z"));
 			m.setStartPlateLocation(start);
 			
 			end = new Location(Bukkit.getWorld(c.getString(prePath + "endinglocation.world")), c.getInt(prePath + "endinglocation.x"), c.getInt(prePath + "endinglocation.y"), c.getInt(prePath + "endinglocation.z"));
 			m.setEndingPlateLocation(end);
+			
+			spawnpoint = new Location(Bukkit.getWorld(c.getString(prePath + "spawnlocation.world")), c.getDouble(prePath + "spawnlocation.x"), c.getDouble(prePath + "spawnlocation.y"),
+					c.getDouble(prePath + "spawnlocation.z"), c.getInt(prePath + "spawnlocation.yaw"), c.getInt(prePath + "spawnlocation.pitch"));
+			m.setSpawnLocation(spawnpoint);
 			
 			maps.add(m);
 			Messager.msgConsole("&aLoaded Map " + m.getInternalName() + " by " + m.getCreatorName() + " successfully.");
@@ -71,8 +76,6 @@ public class MapManager {
 	public static ArrayList<Map> getMaps() {
 		return maps;
 	}
-
-
 
 	public static int getNumberOfMaps() {
 		return maps.size();

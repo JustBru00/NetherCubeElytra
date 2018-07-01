@@ -166,7 +166,7 @@ public class ElytraAdminCommand implements CommandExecutor {
 									Map map = MapManager.getMap(args[3]);
 									if (map != null) {
 										// TELEPORT PLAYER
-										target.teleport(map.getStartPlateLocation().clone().add(.5,1,.5), TeleportCause.PLUGIN);
+										target.teleport(map.getSpawnLocation(), TeleportCause.PLUGIN);
 										Messager.msgSender("&6Teleported " + target.getName() + " to the start of map " + map.getInternalName() + ".", sender);
 										return true;
 									} else {

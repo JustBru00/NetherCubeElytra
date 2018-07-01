@@ -71,5 +71,12 @@ maps:
       x: 88
       y: 99
       z: 111
-      world: world    
+      world: world   
+    spawnlocation:
+      x: 0
+      y: 0
+      z: 0
+      yaw: 0
+      pitch: 0
+      world: world   
     

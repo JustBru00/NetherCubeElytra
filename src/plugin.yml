@@ -1,6 +1,6 @@
 name: NetherCubeElytra
 main: com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra
-version: 1.0-RC3
+version: 1.1
 authors: [JustBru00,Justin Brubaker]
 softdepend: [HolographicDisplays]
 commands:
@@ -16,4 +16,6 @@ commands:
   elytralobby:
     description: Command to teleport to the elytra lobby and leave the current map.
     aliases: [elylobby] 
-  
+  elytratp:
+    description: Teleports a player to the specified map. Won't work if they already own the map.
+    aliases: [elytp]

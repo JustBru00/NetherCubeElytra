@@ -44,7 +44,7 @@ public class MainGUIListener implements Listener {
 								// Ensure that the player is not in a map
 								PlayerTimer.playerLeavingMap((Player) e.getWhoClicked(), false);
 								String mapName = ChatColor.stripColor(item.getItemMeta().getLore().get(5));								
-								e.getWhoClicked().teleport(MapManager.getMap(mapName).getStartPlateLocation().clone().add(0.5, 1, .5), TeleportCause.PLUGIN);
+								e.getWhoClicked().teleport(MapManager.getMap(mapName).getSpawnLocation(), TeleportCause.PLUGIN);
 							}
 							return;
 						} 
