@@ -38,6 +38,10 @@ public class Map {
 		this.startPlateLocation = startPlateLocation;
 		this.endingPlateLocation = endingPlateLocation;
 	}	
+	/**
+	 * Gets the spawnpoint for this map
+	 * @return
+	 */
 	public Location getSpawnLocation() {
 		return spawnLocation;
 	}
