@@ -11,6 +11,7 @@ import com.gmail.justbru00.nethercube.elytra.commands.ElytraAdminCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraBalanceCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraLobbyCommand;
+import com.gmail.justbru00.nethercube.elytra.commands.ElytraTpCommand;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
 import com.gmail.justbru00.nethercube.elytra.leaderboards.LeaderboardManager;
 import com.gmail.justbru00.nethercube.elytra.listeners.ConfirmGUIListener;
@@ -76,6 +77,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		getCommand("elytraadmin").setExecutor(new ElytraAdminCommand());
 		getCommand("elytrabalance").setExecutor(new ElytraBalanceCommand());
 		getCommand("elytralobby").setExecutor(new ElytraLobbyCommand());
+		getCommand("elytratp").setExecutor(new ElytraTpCommand());
 		
 		// REGISTER LISTENERS
 		PluginManager pm = Bukkit.getPluginManager();
