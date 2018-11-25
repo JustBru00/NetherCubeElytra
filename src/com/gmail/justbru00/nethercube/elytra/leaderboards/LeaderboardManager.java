@@ -245,7 +245,7 @@ public class LeaderboardManager {
 	 */
 	public static void startUpdateTask() {
 		int ticksBetweenUpdates = NetherCubeElytra.getInstance().getConfig().getInt("leaderboards.update_every_x_ticks");
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(NetherCubeElytra.getInstance(), new Runnable() {			
+		Bukkit.getScheduler().runTaskTimerAsynchronously(NetherCubeElytra.getInstance(), new Runnable() {			
 			@Override
 			public void run() {
 				Messager.debug("Starting auto leaderboard update.");
