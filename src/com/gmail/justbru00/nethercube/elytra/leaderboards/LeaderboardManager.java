@@ -75,6 +75,10 @@ public class LeaderboardManager {
 					name = "Empty";
 				}
 				
+				if (name == null) {
+					name = "Empty";
+				}
+				
 				line = line.replace("{name" + i +"}", name);
 			}
 			
