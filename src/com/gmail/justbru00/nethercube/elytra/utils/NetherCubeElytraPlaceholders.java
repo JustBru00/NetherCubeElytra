@@ -1,8 +1,6 @@
 package com.gmail.justbru00.nethercube.elytra.utils;
 
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
 import com.gmail.justbru00.nethercube.elytra.data.PlayerData;
 import com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra;
 
