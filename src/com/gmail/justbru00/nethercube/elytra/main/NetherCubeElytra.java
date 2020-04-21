@@ -55,6 +55,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		GUIManager.init();
 		PlayerTimer.init();
 		LeaderboardManager.loadLeaderboardLines();
+		prefix = Messager.color(getConfig().getString("prefix"));
 		
 		// ADD PLACEHOLDERS
 		if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
