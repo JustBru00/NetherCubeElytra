@@ -1,6 +1,6 @@
 name: NetherCubeElytra
 main: com.gmail.justbru00.nethercube.elytra.main.NetherCubeElytra
-version: 1.2.2
+version: 1.3.0
 authors: [JustBru00,Justin Brubaker]
 softdepend: [HolographicDisplays,PlaceholderAPI]
 commands:
