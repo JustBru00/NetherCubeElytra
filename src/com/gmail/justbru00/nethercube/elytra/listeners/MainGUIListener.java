@@ -53,7 +53,7 @@ public class MainGUIListener implements Listener {
 						
 						if (e.getClickedInventory().getName().startsWith(Messager.color("&cCurrency: "))) {
 							// Make sure the item clicked is from the mainGUI
-							if (!e.getCurrentItem().equals(GUIManager.getBorderGlass())) {
+							if (!e.getCurrentItem().equals(GUIManager.getElyBorderGlassCorner()) || !e.getCurrentItem().equals(GUIManager.getElyBorderGlassSide())) {
 								// Item is not the border glass
 								if (e.getClick() == ClickType.RIGHT || e.getClick() == ClickType.SHIFT_RIGHT) {
 									Messager.debug("opening the confirm GUI");								
