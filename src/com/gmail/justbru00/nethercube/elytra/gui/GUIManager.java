@@ -24,6 +24,7 @@ public class GUIManager {
 
 	private static ItemStack elyBorderGlassSide;
 	private static ItemStack elyBorderGlassCorner;
+	private static ItemStack elyBackToElytraLobby;
 
 	private static ItemStack okay;
 	private static ItemStack cancel;
@@ -32,10 +33,15 @@ public class GUIManager {
 	public static void init() {
 		elyBorderGlassSide = new ItemBuilder(Material.STAINED_GLASS_PANE).setDataValue(3).setName("&r").build();
 		elyBorderGlassCorner = new ItemBuilder(Material.STAINED_GLASS_PANE).setDataValue(11).setName("&r").build();
+		elyBackToElytraLobby = new ItemBuilder(Material.ELYTRA).setName("&eBack to elytra lobby").build();
 
 		okay = new ItemBuilder(Material.EMERALD_BLOCK).setName("&a&lOkay").build();
 		cancel = new ItemBuilder(Material.REDSTONE_BLOCK).setName("&c&lCancel").build();
 		cannotAffordMap = new ItemBuilder(Material.BARRIER).setName("&c&lYou can't afford that map").build();
+	}	
+
+	public static ItemStack getElyBackToElytraLobby() {
+		return elyBackToElytraLobby;
 	}
 
 	public static ItemStack getElyBorderGlassSide() {
@@ -128,7 +134,7 @@ public class GUIManager {
 		Inventory inv = Bukkit.createInventory(null, 54, Messager.color("&cCurrency: " + pd.getCurrency()));
 
 		// Set the border glass
-		Integer[] borderSideSlots = { 1, 2, 3, 4, 5, 6, 7, 9, 17, 18, 26, 27, 35, 36, 44, 46, 47, 48, 49, 50, 51, 52 };
+		Integer[] borderSideSlots = { 1, 2, 3, 5, 6, 7, 9, 17, 18, 26, 27, 35, 36, 44, 46, 47, 48, 49, 50, 51, 52 };
 		Integer[] borderCornerSlots = { 0, 8, 45, 53 };
 
 		for (Integer slot : borderSideSlots) {
@@ -138,6 +144,8 @@ public class GUIManager {
 		for (Integer slot : borderCornerSlots) {
 			inv.setItem(slot, getElyBorderGlassCorner());
 		}
+		
+		inv.setItem(4, getElyBackToElytraLobby());
 
 		// Fill the maps in
 		for (Map map : MapManager.getMaps()) {

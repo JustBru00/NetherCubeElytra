@@ -29,7 +29,17 @@ public class MainGUIListener implements Listener {
 					e.setCancelled(true);
 					
 					if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
-						ItemStack item = e.getCurrentItem();				
+						ItemStack item = e.getCurrentItem();			
+						
+						if (item.equals(GUIManager.getElyBackToElytraLobby())) {
+							if (!(e.getWhoClicked() instanceof Player)) {
+								return;
+							}
+							
+							PlayerTimer.playerLeavingMap((Player) e.getWhoClicked(), true);
+							Messager.msgPlayer("&6Teleported you to the elytra lobby.", (Player) e.getWhoClicked());
+							return;
+						}
 						
 						if (item.getItemMeta() == null || item.getItemMeta().getLore() == null)  {
 							// Item doesn't have lore

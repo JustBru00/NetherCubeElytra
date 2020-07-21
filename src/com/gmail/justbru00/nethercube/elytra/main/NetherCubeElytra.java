@@ -13,7 +13,7 @@ import com.gmail.justbru00.nethercube.elytra.commands.ElytraCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraLobbyCommand;
 import com.gmail.justbru00.nethercube.elytra.commands.ElytraTpCommand;
 import com.gmail.justbru00.nethercube.elytra.gui.GUIManager;
-import com.gmail.justbru00.nethercube.elytra.gui.HotbarGUI;
+import com.gmail.justbru00.nethercube.elytra.gui.HotbarGUIManager;
 import com.gmail.justbru00.nethercube.elytra.leaderboards.LeaderboardManager;
 import com.gmail.justbru00.nethercube.elytra.listeners.ConfirmGUIListener;
 import com.gmail.justbru00.nethercube.elytra.listeners.MainGUIListener;
@@ -54,7 +54,7 @@ public class NetherCubeElytra extends JavaPlugin {
 		MapManager.init();
 		dataFile = new PluginFile(this, "data.yml", "data.yml");		
 		GUIManager.init();
-		HotbarGUI.init();
+		HotbarGUIManager.init();
 		PlayerTimer.init();
 		LeaderboardManager.loadLeaderboardLines();
 		prefix = Messager.color(getConfig().getString("prefix"));
